@@ -1,0 +1,190 @@
+    </main>
+    <!-- AKHIR KONTEN UTAMA -->
+
+    <!-- ============================================================ -->
+    <!-- FOOTER PROFESIONAL -->
+    <!-- ============================================================ -->
+    <footer class="footer-professional">
+        <div class="container">
+            <!-- GRID 4 KOLOM -->
+            <div class="footer-grid">
+                <!-- KOLOM 1: Brand -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="/assets/logo/osis.png" alt="OSIS SMAN 1 Palimanan" style="height:50px; width:auto; object-fit:contain; margin-bottom:8px;">
+                    </div>
+                    <p class="footer-description">
+                        Organisasi Siswa Intra Sekolah SMAN 1 Palimanan — Berdedikasi untuk mengembangkan potensi, kreativitas, dan jiwa kepemimpinan siswa.
+                    </p>
+                    <div class="footer-badges">
+                        <span class="badge-active">
+                            <i class="fas fa-check-circle"></i> Aktif
+                        </span>
+                        <span class="badge-active">
+                            <i class="fas fa-users"></i> 2025/2026
+                        </span>
+                    </div>
+                </div>
+
+                <!-- KOLOM 2: Link Cepat -->
+                <div class="footer-col">
+                    <h4 class="footer-title"><i class="fas fa-link"></i> Link Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
+                        <li><a href="/about"><i class="fas fa-info-circle"></i> Tentang</a></li>
+                        <li><a href="/events"><i class="fas fa-calendar-alt"></i> Event</a></li>
+                        <li><a href="/gallery"><i class="fas fa-images"></i> Galeri</a></li>
+                        <li><a href="/aspirasi"><i class="fas fa-bullhorn"></i> Aspirasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- KOLOM 3: Kontak -->
+                <div class="footer-col">
+                    <h4 class="footer-title"><i class="fas fa-address-card"></i> Kontak Kami</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>SMAN 1 Palimanan, Cirebon</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:osis@sman1palimanan.sch.id">osis@sman1palimanan.sch.id</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+6281234567890">+62 812-3456-7890</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Senin - Jumat: 07:30 - 15:30</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- KOLOM 4: Sosial Media -->
+                <div class="footer-col">
+                    <h4 class="footer-title"><i class="fas fa-share-alt"></i> Ikuti Kami</h4>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/osis_sman1palimanan" target="_blank" class="social-link instagram" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://www.youtube.com/@osis_sman1palimanan" target="_blank" class="social-link youtube" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@osis_sman1palimanan" target="_blank" class="social-link tiktok" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                            <span>TikTok</span>
+                        </a>
+                        <a href="https://open.spotify.com/show/your-podcast-id" target="_blank" class="social-link spotify" title="Spotify">
+                            <i class="fab fa-spotify"></i>
+                            <span>Spotify</span>
+                        </a>
+                        <a href="https://wa.me/6281234567890?text=Halo%20OSIS%20SMAN%201%20Palimanan" target="_blank" class="social-link whatsapp" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM BAR -->
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 OSIS SMAN 1 Palimanan. All Rights Reserved.</p>
+                <p class="footer-credit">
+                    Dibangun dengan <i class="fas fa-heart" style="color:#ef4444;"></i> untuk sekolah
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================================ -->
+
+    <!-- SCRIPT DARK MODE -->
+    <script>
+        (function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            if (!themeToggle) {
+                console.warn('Tombol dark mode tidak ditemukan!');
+                return;
+            }
+
+            function setTheme(isDark) {
+                if (isDark) {
+                    body.classList.add('dark-mode');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> Mode Terang';
+                } else {
+                    body.classList.remove('dark-mode');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> Mode Gelap';
+                }
+                try {
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                } catch (e) {}
+            }
+
+            // Load saved theme
+            let saved = 'light';
+            try { saved = localStorage.getItem('theme') || 'light'; } catch (e) {}
+            setTheme(saved === 'dark');
+
+            // Event listener
+            themeToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const isDark = body.classList.contains('dark-mode');
+                setTheme(!isDark);
+            });
+        })();
+    </script>
+
+    <!-- SCRIPT HAMBURGER & CLICK OUTSIDE -->
+    <script>
+        (function() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            if (!hamburger || !navLinks) return;
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('open');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('open');
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                const isClickInside = navLinks.contains(e.target) || hamburger.contains(e.target);
+                if (!isClickInside && navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                }
+            });
+
+            window.addEventListener('scroll', function() {
+                if (navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                }
+            });
+        })();
+    </script>
+
+    <!-- SCRIPT KHUSUS ASPIRASI -->
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                alert('✅ Aspirasi berhasil dikirim!');
+                window.history.replaceState({}, '', '/aspirasi');
+            }
+        })();
+    </script>
+</body>
+</html>

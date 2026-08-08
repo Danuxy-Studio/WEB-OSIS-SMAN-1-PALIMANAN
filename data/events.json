@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "Gema Sastra",
+    "description": "Lomba Bulan Bahasa dengan berbagai kompetisi sastra dan budaya.",
+    "category": "Budaya",
+    "date": "2026-02-15",
+    "location": "Aula Sekolah",
+    "image": "https://picsum.photos/seed/sastra/600/300"
+  },
+  {
+    "id": 2,
+    "title": "Nepal Festival",
+    "description": "Festival seni dan kreativitas siswa, menampilkan bakat terbaik.",
+    "category": "Seni",
+    "date": "2026-03-01",
+    "location": "Lapangan Sekolah",
+    "image": "https://picsum.photos/seed/seni/600/300"
+  },
+  {
+    "id": 3,
+    "title": "Porak",
+    "description": "Pekan Olahraga dengan berbagai perlombaan atletik.",
+    "category": "Olahraga",
+    "date": "2026-03-20",
+    "location": "Stadion",
+    "image": "https://picsum.photos/seed/olahraga/600/300"
+  }
+]

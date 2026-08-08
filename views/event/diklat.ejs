@@ -1,0 +1,163 @@
+<!-- ===== DIKLAT OSIS ===== -->
+<div class="event-detail-full">
+    <div style="display:flex; justify-content:center; margin-bottom:16px;">
+        <img src="/assets/logo/diklat.png" alt="Diklat OSIS" style="width:200px; height:200px; object-fit:contain;">
+    </div>
+    <p style="margin-bottom:16px;">Diklat Ekstrakurikuler diselenggarakan untuk memperkenalkan berbagai kegiatan ekstrakurikuler kepada peserta didik serta memberikan wawasan mengenai manfaat dan peran ekstrakurikuler dalam pengembangan diri. Kegiatan ini juga bertujuan untuk meningkatkan minat dan partisipasi siswa dalam kegiatan nonakademik, melatih kedisiplinan, kerja sama, tanggung jawab, serta mengembangkan bakat dan potensi sesuai dengan minat masing-masing.</p>
+    
+    <h4><i class="fas fa-list"></i> Materi Diklat:</h4>
+    <ul style="padding-left:0; margin-bottom:16px;">
+        <li><i class="fas fa-users"></i> Kepemimpinan &amp; Manajemen Organisasi</li>
+        <li><i class="fas fa-comments"></i> Komunikasi &amp; Public Speaking</li>
+        <li><i class="fas fa-tasks"></i> Perencanaan &amp; Pengelolaan Program</li>
+        <li><i class="fas fa-handshake"></i> Kerja Sama Tim &amp; Kolaborasi</li>
+        <li><i class="fas fa-balance-scale"></i> Etika &amp; Integritas Kepemimpinan</li>
+    </ul>
+
+    <h4><i class="fas fa-bullseye"></i> Tujuan:</h4>
+    <p style="margin-bottom:8px;">Diklat OSIS bertujuan untuk membekali pengurus OSIS dengan pengetahuan, keterampilan, dan sikap yang diperlukan dalam mengelola organisasi sekolah secara profesional dan bertanggung jawab.</p>
+    <ul style="padding-left:0; margin-bottom:16px;">
+        <li><i class="fas fa-check-circle"></i> Meningkatkan kemampuan kepemimpinan pengurus OSIS</li>
+        <li><i class="fas fa-check-circle"></i> Mengembangkan keterampilan manajemen organisasi</li>
+        <li><i class="fas fa-check-circle"></i> Membangun mentalitas profesional dan integritas</li>
+        <li><i class="fas fa-check-circle"></i> Meningkatkan efektivitas kerja tim OSIS</li>
+    </ul>
+
+    <h4><i class="fas fa-users"></i> Manfaat:</h4>
+    <div class="stat-card-alt-grid">
+        <div class="stat-card-alt">
+            <strong>Untuk Siswa - Siswi:</strong>
+            <ul>
+                <p>Diklat Ekstrakurikuler membantu siswa mengenal berbagai ekstrakurikuler di sekolah, mengembangkan minat dan bakat, serta meningkatkan rasa percaya diri, kedisiplinan, dan kemampuan bekerja sama.</p>
+            </ul>
+        </div>
+        <div class="stat-card-alt">
+            <strong>Untuk OSIS:</strong>
+            <ul>
+                <p>Diklat Ekstrakurikuler memberikan pengalaman bagi OSIS dalam mengelola kegiatan, meningkatkan kemampuan kepemimpinan, komunikasi, dan kerja sama tim, serta mempererat hubungan dengan peserta didik.</p>
+            </ul>
+        </div>
+    </div>
+
+    <h4><i class="fas fa-images"></i> Galeri Foto:</h4>
+
+    <!-- ===== SLIDER DIKLAT (ID UNIK) ===== -->
+    <div class="slider-section diklat-slider">
+        <div class="slider-wrapper">
+            <div class="slider-container" id="sliderDiklatContainer">
+                <div class="slider-track" id="sliderDiklatTrack">
+                    <!-- SLIDE 1 -->
+                    <div class="slider-slide">
+                        <img src="/assets/diklat/foto1.jpg" alt="Foto Diklat 1">
+                        <div class="slide-caption">Momen Diklat OSIS</div>
+                    </div>
+                    <!-- SLIDE 2 -->
+                    <div class="slider-slide">
+                        <img src="/assets/diklat/foto2.jpg" alt="Foto Diklat 2">
+                        <div class="slide-caption">Momen Diklat OSIS</div>
+                    </div>
+                    <!-- SLIDE 3 -->
+                    <div class="slider-slide">
+                        <img src="/assets/diklat/foto3.jpg" alt="Foto Diklat 3">
+                        <div class="slide-caption">Momen Diklat OSIS</div>
+                    </div>
+                    <!-- SLIDE 4 -->
+                    <div class="slider-slide">
+                        <img src="/assets/diklat/foto4.jpg" alt="Foto Diklat 4">
+                        <div class="slide-caption">Momen Diklat OSIS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dot Indicator (ID UNIK) - 4 dot -->
+        <div class="slider-dots" id="sliderDiklatDots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+        </div>
+    </div>
+
+    <!-- ===== TOMBOL KE HALAMAN GALERI ===== -->
+    <div style="margin-top:20px; text-align:center;">
+        <a href="/gallery" class="btn-primary" style="display:inline-block;">
+            <i class="fas fa-images"></i> Lihat Galeri Lengkap
+        </a>
+    </div>
+</div>
+
+<!-- ===== SLIDER SCRIPT DIKLAT (AUTO-SLIDE) ===== -->
+<script>
+    (function() {
+        const track = document.getElementById('sliderDiklatTrack');
+        const dots = document.querySelectorAll('#sliderDiklatDots .dot');
+        let currentIndex = 0;
+        const totalSlides = 4;
+        let autoPlayInterval;
+
+        if (!track || dots.length === 0) return;
+
+        function goToSlide(index) {
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+            currentIndex = index;
+            track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        dots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                stopAutoPlay();
+                const index = parseInt(this.getAttribute('data-index'));
+                goToSlide(index);
+                startAutoPlay();
+            });
+        });
+
+        const container = document.getElementById('sliderDiklatContainer');
+        if (container) {
+            container.addEventListener('mouseenter', stopAutoPlay);
+            container.addEventListener('mouseleave', startAutoPlay);
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        if (container) {
+            container.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            container.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    stopAutoPlay();
+                    if (diff > 0) {
+                        goToSlide(currentIndex + 1);
+                    } else {
+                        goToSlide(currentIndex - 1);
+                    }
+                    startAutoPlay();
+                }
+            }, { passive: true });
+        }
+
+        startAutoPlay();
+    })();
+</script>

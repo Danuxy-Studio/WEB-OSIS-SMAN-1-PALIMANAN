@@ -1,0 +1,150 @@
+<!-- ===== GEMA SASTRA ===== -->
+<div class="event-detail-full">
+    <div style="display:flex; justify-content:center; margin-bottom:16px;">
+        <img src="/assets/logo/gema-sastra.png" alt="Gema Sastra" style="width:200px; height:200px; object-fit:contain;">
+    </div>
+    <p style="margin-bottom:16px;">Gema Sastra (Bulan Bahasa) merupakan kegiatan yang diselenggarakan dalam rangka memperingati Bulan Bahasa. Acara ini menjadi wadah bagi siswa untuk menampilkan kemampuan dan kreativitas mereka dalam bidang bahasa dan seni. Dalam kegiatan ini terdapat beberapa perlombaan, seperti lomba menyanyi lagu daerah, story telling, dan cerdas cermat. Setiap lomba memberikan kesempatan kepada peserta untuk menunjukkan bakat, kemampuan berbicara, serta wawasan mereka di bidang bahasa dan budaya.</p>
+    <p>Gema Sastra berlangsung dengan suasana yang meriah dan penuh semangat, melibatkan partisipasi aktif siswa sebagai peserta maupun pendukung acara.</p>
+
+    <h4><i class="fas fa-list"></i> Perlombaan:</h4>
+    <ul style="padding-left:0; margin-bottom:16px;">
+        <li><i class="fas fa-microphone-alt"></i> Lomba Menyanyi Lagu Daerah</li>
+        <li><i class="fas fa-book"></i> Story Telling</li>
+        <li><i class="fas fa-brain"></i> Cerdas Cermat Kebahasaan</li>
+    </ul>
+
+    <h4><i class="fas fa-bullseye"></i> Tujuan:</h4>
+    <p style="margin-bottom:8px;">Gema Sastra (Bulan Bahasa) diselenggarakan untuk menumbuhkan rasa cinta terhadap bahasa dan budaya Indonesia serta memberikan wadah bagi siswa dalam mengembangkan bakat dan potensi di bidang seni dan literasi. Kegiatan ini juga bertujuan untuk meningkatkan partisipasi aktif siswa dalam kegiatan sekolah serta melatih rasa percaya diri, kemampuan berpikir, dan sportivitas dalam berkompetisi.</p>
+
+    <h4><i class="fas fa-users"></i> Manfaat:</h4>
+    <div class="stat-card-alt-grid">
+        <div class="stat-card-alt">
+            <strong>Untuk Siswa - Siswi:</strong>
+            <ul>
+                <p>Bagi seluruh siswa dan siswi, kegiatan ini memberikan kesempatan untuk menyalurkan minat dan bakat, menambah wawasan, meningkatkan kemampuan komunikasi, serta mempererat kebersamaan di lingkungan sekolah.</p>
+            </ul>
+        </div>
+        <div class="stat-card-alt">
+            <strong>Untuk OSIS:</strong>
+            <ul>
+                <p>Bagi OSIS, Gema Sastra menjadi sarana untuk melatih tanggung jawab, kepemimpinan, serta kemampuan bekerja sama dalam merencanakan dan melaksanakan suatu kegiatan. Melalui event ini, OSIS juga memperoleh pengalaman dalam mengelola acara dan meningkatkan kekompakan antaranggota.</p>
+            </ul>
+        </div>
+    </div>
+
+    <h4><i class="fas fa-images"></i> Galeri Foto:</h4>
+
+    <!-- ===== SLIDER GEMA SASTRA (ID UNIK) ===== -->
+    <div class="slider-section gema-slider">
+        <div class="slider-wrapper">
+            <div class="slider-container" id="sliderGemaContainer">
+                <div class="slider-track" id="sliderGemaTrack">
+                    <!-- SLIDE 1 -->
+                    <div class="slider-slide">
+                        <img src="/assets/gema-sastra/foto1.jpg" alt="Foto Gema Sastra 1">
+                        <div class="slide-caption">Momen Gema Sastra</div>
+                    </div>
+                    <!-- SLIDE 2 -->
+                    <div class="slider-slide">
+                        <img src="/assets/gema-sastra/foto2.jpg" alt="Foto Gema Sastra 2">
+                        <div class="slide-caption">Momen Gema Sastra</div>
+                    </div>
+                    <!-- SLIDE 3 -->
+                    <div class="slider-slide">
+                        <img src="/assets/gema-sastra/foto3.jpg" alt="Foto Gema Sastra 3">
+                        <div class="slide-caption">Momen Gema Sastra</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dot Indicator (ID UNIK) -->
+        <div class="slider-dots" id="sliderGemaDots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+        </div>
+    </div>
+
+    <!-- ===== TOMBOL KE HALAMAN GALERI ===== -->
+    <div style="margin-top:20px; text-align:center;">
+        <a href="/gallery" class="btn-primary" style="display:inline-block;">
+            <i class="fas fa-images"></i> Lihat Galeri Lengkap
+        </a>
+    </div>
+</div>
+
+<!-- ===== SLIDER SCRIPT GEMA SASTRA (AUTO-SLIDE) ===== -->
+<script>
+    (function() {
+        const track = document.getElementById('sliderGemaTrack');
+        const dots = document.querySelectorAll('#sliderGemaDots .dot');
+        let currentIndex = 0;
+        const totalSlides = 3;
+        let autoPlayInterval;
+
+        if (!track || dots.length === 0) return;
+
+        function goToSlide(index) {
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+            currentIndex = index;
+            track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        dots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                stopAutoPlay();
+                const index = parseInt(this.getAttribute('data-index'));
+                goToSlide(index);
+                startAutoPlay();
+            });
+        });
+
+        const container = document.getElementById('sliderGemaContainer');
+        if (container) {
+            container.addEventListener('mouseenter', stopAutoPlay);
+            container.addEventListener('mouseleave', startAutoPlay);
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        if (container) {
+            container.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            container.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    stopAutoPlay();
+                    if (diff > 0) {
+                        goToSlide(currentIndex + 1);
+                    } else {
+                        goToSlide(currentIndex - 1);
+                    }
+                    startAutoPlay();
+                }
+            }, { passive: true });
+        }
+
+        startAutoPlay();
+    })();
+</script>

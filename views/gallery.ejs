@@ -1,0 +1,17 @@
+<%- include('partials/header', {title: 'Galeri'}) %>
+
+<section style="padding:24px 0;">
+    <div class="container">
+        <h1 class="section-title"><i class="fas fa-images"></i> Galeri Kegiatan</h1>
+        <div class="gallery-grid">
+            <% images.forEach(img => { %>
+                <div class="gallery-item">
+                    <img src="<%= img.image %>" alt="<%= img.title %>">
+                    <p><%= img.title %></p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

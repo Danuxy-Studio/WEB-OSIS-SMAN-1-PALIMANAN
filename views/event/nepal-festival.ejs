@@ -1,0 +1,151 @@
+<!-- ===== NEPAL FESTIVAL ===== -->
+<div class="event-detail-full">
+    <div style="display:flex; justify-content:center; margin-bottom:16px;">
+        <img src="/assets/logo/nepal-festival.png" alt="Nepal Festival" style="width:200px; height:200px; object-fit:contain;">
+    </div>
+    <p style="margin-bottom:16px;">Nepal Festival adalah sebuah event besar yang diselenggarakan sebagai wadah untuk menampilkan kreativitas, bakat, dan kemampuan para peserta dalam berbagai bidang seni dan keterampilan. Dalam acara ini terdapat berbagai perlombaan dan kegiatan, seperti lomba menyanyi, menari, lukis kaca, promosi produk, serta musikalisasi puisi.</p>
+    
+    <h4><i class="fas fa-list"></i> Perlombaan &amp; Kegiatan:</h4>
+    <ul style="padding-left:0; margin-bottom:16px;">
+        <li><i class="fas fa-microphone-alt"></i> Lomba Menyanyi</li>
+        <li><i class="fas fa-dance"></i> Lomba Menari</li>
+        <li><i class="fas fa-paint-brush"></i> Lukis Kaca</li>
+        <li><i class="fas fa-box-open"></i> Promosi Produk</li>
+        <li><i class="fas fa-music"></i> Musikalisasi Puisi</li>
+    </ul>
+
+    <h4><i class="fas fa-bullseye"></i> Tujuan:</h4>
+    <p style="margin-bottom:16px;">Nepal Festival bertujuan untuk menjadi wadah pengembangan bakat dan kreativitas peserta dalam bidang seni, keterampilan, dan kewirausahaan. Selain itu, kegiatan ini juga bertujuan meningkatkan rasa percaya diri, semangat berkarya, serta mempererat kebersamaan antar peserta.</p>
+
+    <h4><i class="fas fa-users"></i> Manfaat:</h4>
+    <div class="stat-card-alt-grid">
+        <div class="stat-card-alt">
+            <strong>Untuk Siswa - Siswi:</strong>
+            <ul>
+                <p>Nepal Festival bermanfaat bagi siswa siswi sebagai wadah untuk menyalurkan bakat dan kreativitas, meningkatkan rasa percaya diri, menambah pengalaman dan keterampilan, mempererat kebersamaan, serta memberikan hiburan dan suasana yang menyenangkan di lingkungan sekolah.</p>
+            </ul>
+        </div>
+        <div class="stat-card-alt">
+            <strong>Untuk OSIS:</strong>
+            <ul>
+                <p>Bagi OSIS, Nepal Festival menjadi sarana untuk mengembangkan kemampuan manajemen acara, melatih kepemimpinan dan kerja sama tim, serta menambah pengalaman dalam mengkoordinasikan berbagai perlombaan dan kegiatan seni. Event ini juga memperkuat solidaritas dan kekompakan antar pengurus OSIS.</p>
+            </ul>
+        </div>
+    </div>
+
+    <h4><i class="fas fa-images"></i> Galeri Foto:</h4>
+
+    <!-- ===== SLIDER NEPAL FESTIVAL (ID UNIK) ===== -->
+    <div class="slider-section nepal-slider">
+        <div class="slider-wrapper">
+            <div class="slider-container" id="sliderNepalContainer">
+                <div class="slider-track" id="sliderNepalTrack">
+                    <!-- SLIDE 1 -->
+                    <div class="slider-slide">
+                        <img src="/assets/nepal-festival/foto1.jpg" alt="Foto Nepal Festival 1">
+                        <div class="slide-caption">Momen Nepal Festival</div>
+                    </div>
+                    <!-- SLIDE 2 -->
+                    <div class="slider-slide">
+                        <img src="/assets/nepal-festival/foto2.jpg" alt="Foto Nepal Festival 2">
+                        <div class="slide-caption">Momen Nepal Festival</div>
+                    </div>
+                    <!-- SLIDE 3 -->
+                    <div class="slider-slide">
+                        <img src="/assets/nepal-festival/foto3.jpg" alt="Foto Nepal Festival 3">
+                        <div class="slide-caption">Momen Nepal Festival</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dot Indicator (ID UNIK) -->
+        <div class="slider-dots" id="sliderNepalDots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+        </div>
+    </div>
+
+    <!-- ===== TOMBOL KE HALAMAN GALERI ===== -->
+    <div style="margin-top:20px; text-align:center;">
+        <a href="/gallery" class="btn-primary" style="display:inline-block;">
+            <i class="fas fa-images"></i> Lihat Galeri Lengkap
+        </a>
+    </div>
+</div>
+
+<!-- ===== SLIDER SCRIPT NEPAL FESTIVAL (AUTO-SLIDE) ===== -->
+<script>
+    (function() {
+        const track = document.getElementById('sliderNepalTrack');
+        const dots = document.querySelectorAll('#sliderNepalDots .dot');
+        let currentIndex = 0;
+        const totalSlides = 3;
+        let autoPlayInterval;
+
+        if (!track || dots.length === 0) return;
+
+        function goToSlide(index) {
+            if (index < 0) index = totalSlides - 1;
+            if (index >= totalSlides) index = 0;
+            currentIndex = index;
+            track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        dots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                stopAutoPlay();
+                const index = parseInt(this.getAttribute('data-index'));
+                goToSlide(index);
+                startAutoPlay();
+            });
+        });
+
+        const container = document.getElementById('sliderNepalContainer');
+        if (container) {
+            container.addEventListener('mouseenter', stopAutoPlay);
+            container.addEventListener('mouseleave', startAutoPlay);
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        if (container) {
+            container.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            container.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    stopAutoPlay();
+                    if (diff > 0) {
+                        goToSlide(currentIndex + 1);
+                    } else {
+                        goToSlide(currentIndex - 1);
+                    }
+                    startAutoPlay();
+                }
+            }, { passive: true });
+        }
+
+        startAutoPlay();
+    })();
+</script>
