@@ -28,6 +28,7 @@ app.use(
     "/assets",
     express.static(path.join(__dirname, "assets"), staticOptions)
 );
+
 // Fallback ke public/assets jika ada
 app.use(
     "/assets",
