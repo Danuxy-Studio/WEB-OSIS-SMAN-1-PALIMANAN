@@ -23,17 +23,7 @@ const staticOptions = {
     }
 };
 
-// Jalur assets (prioritaskan folder assets di root)
-app.use(
-    "/assets",
-    express.static(path.join(__dirname, "assets"), staticOptions)
-);
-
-// Fallback ke public/assets jika ada
-app.use(
-    "/assets",
-    express.static(path.join(__dirname, "public", "assets"), staticOptions)
-);
+app.use("/assets", express.static(path.join(__dirname, "public", "assets")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
