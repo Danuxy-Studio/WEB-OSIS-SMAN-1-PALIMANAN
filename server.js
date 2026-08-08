@@ -1,34 +1,34 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const compression = require("compression"); // <-- tambahkan
+const compression = require("compression");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// === COMPRESSION (gzip) ===
+// ===== VIEW ENGINE =====
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+// ===== COMPRESSION =====
 app.use(compression());
 
-// === STATIC FILES dengan CACHE HEADERS ===
+// ===== STATIC FILES dengan CACHE =====
 const staticOptions = {
-    maxAge: "7d", // cache selama 7 hari
+    maxAge: "7d",
     setHeaders: (res, filePath) => {
-        if (
-            filePath.endsWith(".jpg") ||
-            filePath.endsWith(".jpeg") ||
-            filePath.endsWith(".png")
-        ) {
+        if (filePath.match(/\.(jpg|jpeg|png|webp|gif|svg)$/)) {
             res.setHeader("Cache-Control", "public, max-age=604800, immutable");
         }
     }
 };
 
-// Serving assets dari folder assets (di root)
+// Jalur assets (prioritaskan folder assets di root)
 app.use(
     "/assets",
     express.static(path.join(__dirname, "assets"), staticOptions)
 );
-// Juga dari public/assets (untuk Vercel compatibility)
+// Fallback ke public/assets jika ada
 app.use(
     "/assets",
     express.static(path.join(__dirname, "public", "assets"), staticOptions)
