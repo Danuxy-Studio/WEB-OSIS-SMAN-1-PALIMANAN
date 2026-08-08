@@ -1,18 +1,43 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const compression = require("compression"); // <-- tambahkan
+
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+// === COMPRESSION (gzip) ===
+app.use(compression());
+
+// === STATIC FILES dengan CACHE HEADERS ===
+const staticOptions = {
+    maxAge: "7d", // cache selama 7 hari
+    setHeaders: (res, filePath) => {
+        if (
+            filePath.endsWith(".jpg") ||
+            filePath.endsWith(".jpeg") ||
+            filePath.endsWith(".png")
+        ) {
+            res.setHeader("Cache-Control", "public, max-age=604800, immutable");
+        }
+    }
+};
+
+// Serving assets dari folder assets (di root)
+app.use(
+    "/assets",
+    express.static(path.join(__dirname, "assets"), staticOptions)
+);
+// Juga dari public/assets (untuk Vercel compatibility)
+app.use(
+    "/assets",
+    express.static(path.join(__dirname, "public", "assets"), staticOptions)
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.use("/assets", express.static("assets"));
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-
-// ===== DATA EVENT HARDCODE (tanpa JSON) =====
+// ===== DATA EVENT HARDCODE =====
 const events = [
     {
         id: 1,
@@ -77,7 +102,7 @@ const events = [
     }
 ];
 
-// ===== HELPER UNTUK MESSAGES & GALLERY (tetap pakai JSON) =====
+// ===== HELPER JSON =====
 const DATA_DIR = path.join(__dirname, "data");
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
 
@@ -109,19 +134,15 @@ if (!fs.existsSync(path.join(DATA_DIR, "gallery.json"))) {
 }
 
 // ===== ROUTES =====
-
-// Home
 app.get("/", (req, res) => {
-    const featuredEvents = events.slice(0, 4); // ambil 4 event pertama
+    const featuredEvents = events.slice(0, 4);
     res.render("index", { title: "Beranda", events: featuredEvents });
 });
 
-// About
 app.get("/about", (req, res) => {
     res.render("about", { title: "Tentang" });
 });
 
-// Events - dengan filter & search
 app.get("/events", (req, res) => {
     let filteredEvents = [...events];
     const { search, category } = req.query;
@@ -147,20 +168,17 @@ app.get("/events", (req, res) => {
     });
 });
 
-// Detail Event
 app.get("/event/:id", (req, res) => {
     const event = events.find(e => e.id == req.params.id);
     if (!event) return res.status(404).send("Event tidak ditemukan");
     res.render("event/detail", { title: event.title, event });
 });
 
-// Gallery
 app.get("/gallery", (req, res) => {
     const images = readJSON("gallery.json");
     res.render("gallery", { title: "Galeri", images });
 });
 
-// Contact
 app.get("/aspirasi", (req, res) => {
     res.render("aspirasi", { title: "Suara Satu Palimanan", success: false });
 });
@@ -178,9 +196,10 @@ app.post("/aspirasi", (req, res) => {
         created_at: new Date().toISOString()
     });
     writeJSON("messages.json", messages);
-    res.render("contact", { title: "Kontak", success: true });
+    res.render("aspirasi", { title: "Suara Satu Palimanan", success: true });
 });
 
+// ===== START =====
 app.listen(PORT, () => {
     console.log(`✅ Server berjalan di http://localhost:${PORT}`);
     console.log(`📋 Total event: ${events.length}`);
