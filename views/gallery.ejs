@@ -1,14 +1,35 @@
 <%- include('partials/header', {title: 'Galeri'}) %>
 
-<section style="padding:24px 0;">
+<section style="padding:32px 0;">
     <div class="container">
-        <h1 class="section-title"><i class="fas fa-images"></i> Galeri Kegiatan</h1>
-        <div class="gallery-grid">
-            <% images.forEach(img => { %>
-                <div class="gallery-item">
-                    <img src="<%= img.image %>" alt="<%= img.title %>">
-                    <p><%= img.title %></p>
-                </div>
+        <h1 class="section-title" style="text-align:center;"><i class="fas fa-images"></i> Galeri</h1>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:32px;">
+            Pilih kategori untuk melihat dokumentasi kegiatan.
+        </p>
+
+        <div class="gallery-category-grid">
+            <% categories.forEach(cat => { %>
+                <a href="/gallery/<%= encodeURIComponent(cat) %>" class="gallery-category-card-link">
+                    <div class="gallery-category-card">
+                        <div class="gallery-category-icon">
+                            <i class="fas <%= galleryData[cat].icon || 'fa-folder' %>"></i>
+                        </div>
+                        <h3><%= cat %></h3>
+                        <p><%= galleryData[cat].description %></p>
+                        <% if (galleryData[cat].type === 'category') { %>
+                            <span class="badge-category">
+                                <i class="fas fa-folder-open"></i> <%= galleryData[cat].subcategories.length %> Event
+                            </span>
+                        <% } else { %>
+                            <span class="badge-category">
+                                <i class="fas fa-images"></i> <%= galleryData[cat].photos.length %> Foto
+                            </span>
+                        <% } %>
+                        <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem; margin-top:8px;">
+                            <i class="fas fa-arrow-right"></i> Lihat
+                        </span>
+                    </div>
+                </a>
             <% }) %>
         </div>
     </div>

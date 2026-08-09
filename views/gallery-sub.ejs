@@ -1,0 +1,34 @@
+<%- include('partials/header', {title: data.title}) %>
+
+<section style="padding:24px 0;">
+    <div class="container">
+        <a href="/gallery" class="btn-primary btn-secondary" style="display:inline-block; margin-bottom:20px;">
+            <i class="fas fa-arrow-left"></i> Kembali ke Galeri
+        </a>
+
+        <h1 class="section-title"><i class="fas <%= data.icon || 'fa-calendar-alt' %>"></i> <%= data.title %></h1>
+        <p style="color:var(--text-muted); margin-bottom:24px;"><%= data.description %></p>
+
+        <div class="gallery-category-grid">
+            <% data.subcategories.forEach(sub => { %>
+                <a href="/gallery/<%= encodeURIComponent(category) %>/<%= sub.id %>" class="gallery-category-card-link">
+                    <div class="gallery-category-card">
+                        <div class="gallery-category-logo">
+                            <img src="<%= sub.logo %>" alt="<%= sub.title %>" loading="lazy">
+                        </div>
+                        <h3><%= sub.title %></h3>
+                        <p><%= sub.description %></p>
+                        <span class="badge-category">
+                            <i class="fas fa-images"></i> <%= sub.photos.length %> Foto
+                        </span>
+                        <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem; margin-top:8px;">
+                            <i class="fas fa-arrow-right"></i> Lihat Foto
+                        </span>
+                    </div>
+                </a>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

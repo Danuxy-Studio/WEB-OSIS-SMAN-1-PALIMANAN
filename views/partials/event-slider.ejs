@@ -1,0 +1,15 @@
+<div class="slider-section">
+    <div class="slider-wrapper">
+        <div class="slider-container" data-slider data-autoplay="4000">
+            <div class="slider-track">
+                <% photos.forEach(function (photo, i) { %>
+                    <div class="slider-slide">
+                        <img src="<%= photo %>" alt="<%= caption %> <%= i + 1 %>" loading="lazy">
+                        <div class="slide-caption"><%= caption %></div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+    <div class="slider-dots"></div>
+</div>

@@ -4,7 +4,7 @@
         <img src="/assets/logo/porak.png" alt="Porak" style="width:200px; height:200px; object-fit:contain;">
     </div>
     <p style="margin-bottom:16px;">Porak adalah kegiatan yang berisi berbagai perlombaan dan pertandingan olahraga yang diselenggarakan dalam waktu tertentu untuk meningkatkan kesehatan, sportivitas, kerja sama, dan semangat persatuan. Dalam pekan olahraga biasanya terdapat berbagai cabang perlombaan, seperti futsal, lompat jauh dan lompat tinggi.</p>
-    
+
     <h4><i class="fas fa-list"></i> Cabang Perlombaan:</h4>
     <ul style="padding-left:0; margin-bottom:16px;">
         <li><i class="fas fa-futbol"></i> Futsal</li>
@@ -16,5 +16,22 @@
     <p style="margin-bottom:8px;">Tujuan Porak adalah untuk meningkatkan kesehatan dan kebugaran tubuh, menumbuhkan sikap sportivitas, mempererat persatuan, serta mengembangkan bakat dan kemampuan dalam bidang olahraga.</p>
 
     <h4><i class="fas fa-users"></i> Manfaat:</h4>
-    <p style="margin-bottom:8px;">Manfaat porak yaitu tubuh menjadi lebih sehat dan aktif, melatih kerja sama dan disiplin, menambah pengalaman bertanding, meningkatkan rasa percaya diri, serta mempererat hubungan antar peserta.</p>
+    <p style="margin-bottom:16px;">Manfaat porak yaitu tubuh menjadi lebih sehat dan aktif, melatih kerja sama dan disiplin, menambah pengalaman bertanding, meningkatkan rasa percaya diri, serta mempererat hubungan antar peserta.</p>
+
+    <h4><i class="fas fa-images"></i> Galeri Foto:</h4>
+
+    <%- include('../partials/event-slider', {
+        caption: 'Momen Porak',
+        photos: [
+            '/assets/foto-event/porak/foto1.jpg',
+            '/assets/foto-event/porak/foto2.jpg',
+            '/assets/foto-event/porak/foto3.jpg'
+        ]
+    }) %>
+
+    <div style="margin-top:20px; text-align:center;">
+        <a href="/gallery" class="btn-primary" style="display:inline-block;">
+            <i class="fas fa-images"></i> Lihat Galeri Lengkap
+        </a>
+    </div>
 </div>

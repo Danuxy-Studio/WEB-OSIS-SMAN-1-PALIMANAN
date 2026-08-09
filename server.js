@@ -13,93 +13,34 @@ app.set("views", path.join(__dirname, "views"));
 // ===== COMPRESSION =====
 app.use(compression());
 
-// ===== STATIC FILES dengan CACHE =====
-const staticOptions = {
-    maxAge: "7d",
-    setHeaders: (res, filePath) => {
-        if (filePath.match(/\.(jpg|jpeg|png|webp|gif|svg)$/)) {
-            res.setHeader("Cache-Control", "public, max-age=604800, immutable");
+// ===== STATIC FILES (public/assets, public/css, public/js) dengan CACHE =====
+// NOTE: sebelumnya cuma "/assets" yang di-serve, jadi /css dan /js 404.
+// Sekarang seluruh folder public/ di-serve dari root ("/").
+app.use(
+    express.static(path.join(__dirname, "public"), {
+        // Tidak ada maxAge global di sini dengan sengaja — CSS/JS harus
+        // selalu fresh (biar perubahan kelihatan langsung tanpa hard-refresh).
+        // Cuma gambar yang di-cache lama, lihat setHeaders di bawah.
+        setHeaders: (res, filePath) => {
+            if (filePath.match(/\.(jpg|jpeg|png|webp|gif|svg)$/)) {
+                res.setHeader("Cache-Control", "public, max-age=604800, immutable");
+            } else if (filePath.match(/\.(css|js)$/)) {
+                res.setHeader("Cache-Control", "no-cache");
+            }
         }
-    }
-};
-
-app.use("/assets", express.static(path.join(__dirname, "public", "assets")));
+    })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// ===== DATA EVENT HARDCODE =====
-const events = [
-    {
-        id: 1,
-        title: "Gema Sastra",
-        slug: "gema-sastra",
-        logo: "/assets/logo/gema-sastra.png",
-        category: "Budaya & Literasi",
-        date: "2026-02-15",
-        location: "Aula Sekolah",
-        description:
-            "Lomba Bulan Bahasa dengan berbagai kompetisi sastra dan budaya.",
-        shortDesc:
-            "Bulan Bahasa — lomba menyanyi daerah, story telling, cerdas cermat kebahasaan."
-    },
-    {
-        id: 2,
-        title: "Nepal Festival",
-        slug: "nepal-festival",
-        logo: "/assets/logo/nepal-festival.png",
-        category: "Seni & Kreativitas",
-        date: "2026-03-01",
-        location: "Lapangan Sekolah",
-        description:
-            "Festival seni dan kreativitas siswa, menampilkan bakat terbaik.",
-        shortDesc:
-            "Wadah kreativitas — lomba menyanyi, menari, lukis kaca, promosi produk, musikalisasi puisi."
-    },
-    {
-        id: 3,
-        title: "Porak",
-        slug: "porak",
-        logo: "/assets/logo/porak.png",
-        category: "Olahraga & Sportivitas",
-        date: "2026-03-20",
-        location: "Stadion",
-        description: "Pekan Olahraga dengan berbagai perlombaan atletik.",
-        shortDesc: "Pekan Olahraga — futsal, lompat jauh, lompat tinggi."
-    },
-    {
-        id: 4,
-        title: "MPLS",
-        slug: "mpls",
-        logo: "/assets/logo/mpls.png",
-        category: "Pengenalan Sekolah",
-        date: "2026-07-15",
-        location: "SMAN 1 Palimanan",
-        description: "Masa Pengenalan Lingkungan Sekolah untuk siswa baru.",
-        shortDesc:
-            "Pengenalan lingkungan sekolah, budaya organisasi, dan pembentukan karakter."
-    },
-    {
-        id: 5,
-        title: "Diklat OSIS",
-        slug: "diklat",
-        logo: "/assets/logo/diklat.png",
-        category: "Pengembangan Organisasi",
-        date: "2026-08-10",
-        location: "Aula Sekolah",
-        description: "Pelatihan dan pengembangan kapasitas pengurus OSIS.",
-        shortDesc:
-            "Pelatihan kepemimpinan, manajemen organisasi, dan pengembangan diri."
-    }
-];
 
 // ===== HELPER JSON =====
 const DATA_DIR = path.join(__dirname, "data");
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
 
-const readJSON = file => {
+const readJSON = (file, fallback) => {
     const filePath = path.join(DATA_DIR, file);
-    if (!fs.existsSync(filePath)) return [];
+    if (!fs.existsSync(filePath)) return fallback;
     return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 };
 
@@ -109,24 +50,65 @@ const writeJSON = (file, data) => {
 
 if (!fs.existsSync(path.join(DATA_DIR, "messages.json")))
     writeJSON("messages.json", []);
-if (!fs.existsSync(path.join(DATA_DIR, "gallery.json"))) {
-    writeJSON("gallery.json", [
-        {
-            id: 1,
-            title: "Momen Lomba",
-            image: "https://picsum.photos/seed/gallery1/600/300"
-        },
-        {
-            id: 2,
-            title: "Kegiatan OSIS",
-            image: "https://picsum.photos/seed/gallery2/600/300"
-        }
-    ]);
-}
 
-// ===== ROUTES =====
+// ===== DATA (dibaca dari file, bukan hardcode lagi) =====
+const events = readJSON("events.json", []);
+const galleryData = readJSON("gallery-data.json", {});
+
+// ===== ROUTES GALLERY =====
+app.get("/gallery", (req, res) => {
+    const categories = Object.keys(galleryData);
+    res.render("gallery", {
+        title: "Galeri",
+        categories,
+        galleryData
+    });
+});
+
+app.get("/gallery/:category", (req, res) => {
+    const category = decodeURIComponent(req.params.category);
+    const data = galleryData[category];
+    if (!data) return res.status(404).send("Kategori tidak ditemukan");
+
+    if (data.type === "category") {
+        return res.render("gallery-sub", {
+            title: data.title,
+            category: category,
+            data: data
+        });
+    }
+
+    if (data.type === "photos") {
+        return res.render("gallery-photos", {
+            title: data.title,
+            category: category,
+            data: data
+        });
+    }
+
+    res.status(404).send("Kategori tidak ditemukan");
+});
+
+app.get("/gallery/:category/:subId", (req, res) => {
+    const category = decodeURIComponent(req.params.category);
+    const subId = req.params.subId;
+    const data = galleryData[category];
+    if (!data || data.type !== "category")
+        return res.status(404).send("Kategori tidak ditemukan");
+
+    const sub = data.subcategories.find(s => s.id === subId);
+    if (!sub) return res.status(404).send("Event tidak ditemukan");
+
+    res.render("gallery-detail", {
+        title: sub.title,
+        category: category,
+        sub: sub
+    });
+});
+
+// ===== ROUTES UTAMA =====
 app.get("/", (req, res) => {
-    const featuredEvents = events.slice(0, 4);
+    const featuredEvents = events.slice(0, 5);
     res.render("index", { title: "Beranda", events: featuredEvents });
 });
 
@@ -165,11 +147,6 @@ app.get("/event/:id", (req, res) => {
     res.render("event/detail", { title: event.title, event });
 });
 
-app.get("/gallery", (req, res) => {
-    const images = readJSON("gallery.json");
-    res.render("gallery", { title: "Galeri", images });
-});
-
 app.get("/aspirasi", (req, res) => {
     res.render("aspirasi", { title: "Suara Satu Palimanan", success: false });
 });
@@ -178,7 +155,7 @@ app.post("/aspirasi", (req, res) => {
     const { name, email, message } = req.body;
     if (!name || !email || !message)
         return res.status(400).send("Semua field harus diisi");
-    const messages = readJSON("messages.json");
+    const messages = readJSON("messages.json", []);
     messages.push({
         id: Date.now(),
         name,
@@ -187,7 +164,12 @@ app.post("/aspirasi", (req, res) => {
         created_at: new Date().toISOString()
     });
     writeJSON("messages.json", messages);
-    res.render("aspirasi", { title: "Suara Satu Palimanan", success: true });
+    res.redirect("/aspirasi?success=true");
+});
+
+// ===== 404 FALLBACK =====
+app.use((req, res) => {
+    res.status(404).send("Halaman tidak ditemukan");
 });
 
 // ===== START =====

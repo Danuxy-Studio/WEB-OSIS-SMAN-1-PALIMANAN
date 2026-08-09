@@ -1,0 +1,22 @@
+<%- include('partials/header', {title: data.title}) %>
+
+<section style="padding:24px 0;">
+    <div class="container">
+        <a href="/gallery" class="btn-primary btn-secondary" style="display:inline-block; margin-bottom:20px;">
+            <i class="fas fa-arrow-left"></i> Kembali ke Galeri
+        </a>
+
+        <h1 class="section-title"><i class="fas <%= data.icon || 'fa-images' %>"></i> <%= data.title %></h1>
+        <p style="color:var(--text-muted); margin-bottom:24px;"><%= data.description %></p>
+
+        <div class="gallery-detail-grid">
+            <% data.photos.forEach(photo => { %>
+                <div class="gallery-detail-item">
+                    <img src="<%= photo %>" alt="<%= data.title %>" loading="lazy">
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

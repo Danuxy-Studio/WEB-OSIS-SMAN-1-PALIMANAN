@@ -1,0 +1,116 @@
+{
+    "Galeri Kegiatan Event": {
+        "type": "category",
+        "title": "Galeri Kegiatan Event",
+        "icon": "fa-calendar-alt",
+        "description": "Dokumentasi setiap kegiatan event OSIS.",
+        "subcategories": [
+            {
+                "id": "gema-sastra",
+                "title": "Gema Sastra",
+                "logo": "/assets/logo/gema-sastra.png",
+                "description": "Dokumentasi Gema Sastra (Bulan Bahasa).",
+                "driveLink": "https://drive.google.com/drive/folders/1c_F3LcRlYNz8MZcEZLEKWoTRq0Bk0kLy",
+                "photos": [
+                    "/assets/foto-event/gema-sastra/foto1.jpg",
+                    "/assets/foto-event/gema-sastra/foto2.jpg",
+                    "/assets/foto-event/gema-sastra/foto3.jpg",
+                    "/assets/gallery/event/gema/foto1.jpg",
+                    "/assets/gallery/event/gema/foto2.jpg",
+                    "/assets/gallery/event/gema/foto3.jpg",
+                    "/assets/gallery/event/gema/foto4.jpg",
+                    "/assets/gallery/event/gema/foto5.jpg",
+                    "/assets/gallery/event/gema/foto6.jpg"
+                ]
+            },
+            {
+                "id": "nepal-festival",
+                "title": "Nepal Festival",
+                "logo": "/assets/logo/nepal-festival.png",
+                "description": "Dokumentasi Nepal Festival.",
+                "driveLink": "https://drive.google.com/drive/folders/your-nepal-festival-folder",
+                "photos": [
+                    "/assets/foto-event/nepal-festival/foto1.jpg",
+                    "/assets/foto-event/nepal-festival/foto2.jpg",
+                    "/assets/foto-event/nepal-festival/foto3.jpg",
+                    "/assets/gallery/event/nepal/foto1.jpg",
+                    "/assets/gallery/event/nepal/foto2.jpg",
+                    "/assets/gallery/event/nepal/foto3.jpg",
+                    "/assets/gallery/event/nepal/foto4.jpg",
+                    "/assets/gallery/event/nepal/foto5.jpg"
+                ]
+            },
+            {
+                "id": "porak",
+                "title": "Porak",
+                "logo": "/assets/logo/porak.png",
+                "description": "Dokumentasi Porak.",
+                "driveLink": "https://drive.google.com/drive/folders/your-porak-folder",
+                "photos": [
+                    "/assets/foto-event/porak/foto1.jpg",
+                    "/assets/foto-event/porak/foto2.jpg",
+                    "/assets/foto-event/porak/foto3.jpg",
+                    "/assets/gallery/event/porak/foto1.jpg",
+                    "/assets/gallery/event/porak/foto2.jpg",
+                    "/assets/gallery/event/porak/foto3.jpg"
+                ]
+            },
+            {
+                "id": "mpls",
+                "title": "MPLS",
+                "logo": "/assets/logo/mpls.png",
+                "description": "Dokumentasi MPLS.",
+                "driveLink": "https://drive.google.com/drive/folders/1fIJcRO30o1hEXXqOqvpYlo3iTIMqtqBH",
+                "photos": [
+                    "/assets/foto-event/mpls/foto1.jpg",
+                    "/assets/foto-event/mpls/foto2.jpg",
+                    "/assets/foto-event/mpls/foto3.jpg",
+                    "/assets/foto-event/mpls/foto4.jpg",
+                    "/assets/foto-event/mpls/foto5.jpg",
+                    "/assets/gallery/event/mpls/foto1.jpg",
+                    "/assets/gallery/event/mpls/foto2.jpg",
+                    "/assets/gallery/event/mpls/foto3.jpg"
+                ]
+            },
+            {
+                "id": "diklat",
+                "title": "Diklat OSIS",
+                "logo": "/assets/logo/diklat.png",
+                "description": "Dokumentasi Diklat OSIS.",
+                "driveLink": "https://drive.google.com/drive/folders/1OXm9uUWqpxsptGGoOiU-I1-Z89xjYxHh",
+                "photos": [
+                    "/assets/foto-event/diklat/foto1.jpg",
+                    "/assets/foto-event/diklat/foto2.jpg",
+                    "/assets/foto-event/diklat/foto3.jpg",
+                    "/assets/foto-event/diklat/foto4.jpg",
+                    "/assets/gallery/event/diklat/foto1.jpg",
+                    "/assets/gallery/event/diklat/foto2.jpg",
+                    "/assets/gallery/event/diklat/foto3.jpg",
+                    "/assets/gallery/event/diklat/foto4.jpg",
+                    "/assets/gallery/event/diklat/foto5.jpg"
+                ]
+            }
+        ]
+    },
+    "Galeri Kegiatan OSIS MPK": {
+        "type": "photos",
+        "title": "Galeri Kegiatan OSIS MPK",
+        "icon": "fa-users",
+        "description": "Dokumentasi kegiatan OSIS dan MPK.",
+        "photos": [
+            "/assets/foto-osis-mpk/foto1.jpg",
+            "/assets/foto-osis-mpk/foto2.jpg",
+            "/assets/foto-osis-mpk/foto3.jpg",
+            "/assets/foto-osis-mpk/foto4.jpg",
+            "/assets/foto-osis-mpk/foto5.jpg",
+            "/assets/foto-osis-mpk/foto6.jpg",
+            "/assets/foto-osis-mpk/foto7.jpg",
+            "/assets/slider/foto1.jpg",
+            "/assets/slider/foto2.jpg",
+            "/assets/slider/foto3.jpg",
+            "/assets/slider/foto4.jpg",
+            "/assets/slider/foto5.jpg",
+            "/assets/slider/foto7.jpg"
+        ]
+    }
+}

@@ -3,9 +3,9 @@
     <div style="display:flex; justify-content:center; margin-bottom:16px;">
         <img src="/assets/logo/mpls.png" alt="MPLS" style="width:200px; height:200px; object-fit:contain;">
     </div>
-    <h2 class="section-title" style="font-size:1.2rem; font-weight:400; color:#64748b; text-align:center; margin-bottom:16px;">Masa Pengenalan Lingkungan Sekolah</h2>
+    <h2 class="section-title" style="font-size:1.2rem; font-weight:400; color:var(--text-muted); text-align:center; margin-bottom:16px;">Masa Pengenalan Lingkungan Sekolah</h2>
     <p style="margin-bottom:16px;">Masa Pengenalan Lingkungan Sekolah (MPLS) diselenggarakan untuk membantu peserta didik baru mengenal lingkungan sekolah, budaya, tata tertib, serta berbagai kegiatan yang ada di sekolah. Kegiatan ini juga bertujuan untuk menumbuhkan rasa kebersamaan, kedisiplinan, tanggung jawab, dan semangat belajar, sekaligus memberikan bekal agar peserta didik dapat beradaptasi dengan baik di lingkungan sekolah serta berpartisipasi aktif dalam setiap kegiatan yang diikuti.</p>
-    
+
     <h4><i class="fas fa-list"></i> Kegiatan MPLS:</h4>
     <ul style="padding-left:0; margin-bottom:16px;">
         <li><i class="fas fa-school"></i> Pengenalan Lingkungan Sekolah</li>
@@ -58,129 +58,20 @@
 
     <h4><i class="fas fa-images"></i> Galeri Foto:</h4>
 
-    <!-- ===== SLIDER MPLS (ID UNIK) ===== -->
-    <div class="slider-section mpls-slider">
-        <div class="slider-wrapper">
-            <div class="slider-container" id="sliderMplsContainer">
-                <div class="slider-track" id="sliderMplsTrack">
-                    <!-- SLIDE 1 -->
-                    <div class="slider-slide">
-                        <img src="/assets/mpls/foto1.jpg" alt="Foto MPLS 1">
-                        <div class="slide-caption">Momen MPLS</div>
-                    </div>
-                    <!-- SLIDE 2 -->
-                    <div class="slider-slide">
-                        <img src="/assets/mpls/foto2.jpg" alt="Foto MPLS 2">
-                        <div class="slide-caption">Momen MPLS</div>
-                    </div>
-                    <!-- SLIDE 3 -->
-                    <div class="slider-slide">
-                        <img src="/assets/mpls/foto3.jpg" alt="Foto MPLS 3">
-                        <div class="slide-caption">Momen MPLS</div>
-                    </div>
-                    <!-- SLIDE 4 -->
-                    <div class="slider-slide">
-                        <img src="/assets/mpls/foto4.jpg" alt="Foto MPLS 4">
-                        <div class="slide-caption">Momen MPLS</div>
-                    </div>
-                    <!-- SLIDE 5 -->
-                    <div class="slider-slide">
-                        <img src="/assets/mpls/foto5.jpg" alt="Foto MPLS 5">
-                        <div class="slide-caption">Momen MPLS</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <%- include('../partials/event-slider', {
+        caption: 'Momen MPLS',
+        photos: [
+            '/assets/foto-event/mpls/foto1.jpg',
+            '/assets/foto-event/mpls/foto2.jpg',
+            '/assets/foto-event/mpls/foto3.jpg',
+            '/assets/foto-event/mpls/foto4.jpg',
+            '/assets/foto-event/mpls/foto5.jpg'
+        ]
+    }) %>
 
-        <!-- Dot Indicator (ID UNIK) - 5 dot -->
-        <div class="slider-dots" id="sliderMplsDots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-            <span class="dot" data-index="3"></span>
-            <span class="dot" data-index="4"></span>
-        </div>
-    </div>
-
-    <!-- ===== TOMBOL KE HALAMAN GALERI ===== -->
     <div style="margin-top:20px; text-align:center;">
         <a href="/gallery" class="btn-primary" style="display:inline-block;">
             <i class="fas fa-images"></i> Lihat Galeri Lengkap
         </a>
     </div>
 </div>
-
-<!-- ===== SLIDER SCRIPT MPLS (AUTO-SLIDE) ===== -->
-<script>
-    (function() {
-        const track = document.getElementById('sliderMplsTrack');
-        const dots = document.querySelectorAll('#sliderMplsDots .dot');
-        let currentIndex = 0;
-        const totalSlides = 5;
-        let autoPlayInterval;
-
-        if (!track || dots.length === 0) return;
-
-        function goToSlide(index) {
-            if (index < 0) index = totalSlides - 1;
-            if (index >= totalSlides) index = 0;
-            currentIndex = index;
-            track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
-            });
-        }
-
-        function nextSlide() {
-            goToSlide(currentIndex + 1);
-        }
-
-        function startAutoPlay() {
-            autoPlayInterval = setInterval(nextSlide, 4000);
-        }
-
-        function stopAutoPlay() {
-            clearInterval(autoPlayInterval);
-        }
-
-        dots.forEach(function(dot) {
-            dot.addEventListener('click', function() {
-                stopAutoPlay();
-                const index = parseInt(this.getAttribute('data-index'));
-                goToSlide(index);
-                startAutoPlay();
-            });
-        });
-
-        const container = document.getElementById('sliderMplsContainer');
-        if (container) {
-            container.addEventListener('mouseenter', stopAutoPlay);
-            container.addEventListener('mouseleave', startAutoPlay);
-        }
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        if (container) {
-            container.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-
-            container.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    stopAutoPlay();
-                    if (diff > 0) {
-                        goToSlide(currentIndex + 1);
-                    } else {
-                        goToSlide(currentIndex - 1);
-                    }
-                    startAutoPlay();
-                }
-            }, { passive: true });
-        }
-
-        startAutoPlay();
-    })();
-</script>

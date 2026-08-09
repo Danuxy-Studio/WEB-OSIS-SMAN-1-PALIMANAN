@@ -5,7 +5,7 @@
         <a href="/events" class="btn-primary btn-secondary" style="display:inline-block; margin-bottom:16px;">
             <i class="fas fa-arrow-left"></i> Kembali ke Daftar Event
         </a>
-        
+
         <!-- TAMPILKAN KONTEN EVENT SESUAI ID -->
         <% if (event.id === 1) { %>
             <%- include('gema-sastra') %>
@@ -20,7 +20,7 @@
         <% } else { %>
             <div class="event-detail-full">
                 <div style="display:flex; justify-content:center; margin-bottom:16px;">
-                    <i class="fas fa-calendar-alt" style="font-size:4rem; color:#3b82f6;"></i>
+                    <i class="fas fa-calendar-alt" style="font-size:4rem; color:var(--brand-blue-accent);"></i>
                 </div>
                 <img src="<%= event.image || 'https://picsum.photos/seed/detail/800/400' %>" alt="<%= event.title %>" style="width:100%; border-radius:16px; margin:16px 0; max-height:300px; object-fit:cover;">
                 <p><i class="fas fa-tag"></i> <strong>Kategori:</strong> <%= event.category || 'Umum' %></p>

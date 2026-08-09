@@ -34,117 +34,18 @@
 
     <h4><i class="fas fa-images"></i> Galeri Foto:</h4>
 
-    <!-- ===== SLIDER GEMA SASTRA (ID UNIK) ===== -->
-    <div class="slider-section gema-slider">
-        <div class="slider-wrapper">
-            <div class="slider-container" id="sliderGemaContainer">
-                <div class="slider-track" id="sliderGemaTrack">
-                    <!-- SLIDE 1 -->
-                    <div class="slider-slide">
-                        <img src="/assets/gema-sastra/foto1.jpg" alt="Foto Gema Sastra 1">
-                        <div class="slide-caption">Momen Gema Sastra</div>
-                    </div>
-                    <!-- SLIDE 2 -->
-                    <div class="slider-slide">
-                        <img src="/assets/gema-sastra/foto2.jpg" alt="Foto Gema Sastra 2">
-                        <div class="slide-caption">Momen Gema Sastra</div>
-                    </div>
-                    <!-- SLIDE 3 -->
-                    <div class="slider-slide">
-                        <img src="/assets/gema-sastra/foto3.jpg" alt="Foto Gema Sastra 3">
-                        <div class="slide-caption">Momen Gema Sastra</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <%- include('../partials/event-slider', {
+        caption: 'Momen Gema Sastra',
+        photos: [
+            '/assets/foto-event/gema-sastra/foto1.jpg',
+            '/assets/foto-event/gema-sastra/foto2.jpg',
+            '/assets/foto-event/gema-sastra/foto3.jpg'
+        ]
+    }) %>
 
-        <!-- Dot Indicator (ID UNIK) -->
-        <div class="slider-dots" id="sliderGemaDots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-        </div>
-    </div>
-
-    <!-- ===== TOMBOL KE HALAMAN GALERI ===== -->
     <div style="margin-top:20px; text-align:center;">
         <a href="/gallery" class="btn-primary" style="display:inline-block;">
             <i class="fas fa-images"></i> Lihat Galeri Lengkap
         </a>
     </div>
 </div>
-
-<!-- ===== SLIDER SCRIPT GEMA SASTRA (AUTO-SLIDE) ===== -->
-<script>
-    (function() {
-        const track = document.getElementById('sliderGemaTrack');
-        const dots = document.querySelectorAll('#sliderGemaDots .dot');
-        let currentIndex = 0;
-        const totalSlides = 3;
-        let autoPlayInterval;
-
-        if (!track || dots.length === 0) return;
-
-        function goToSlide(index) {
-            if (index < 0) index = totalSlides - 1;
-            if (index >= totalSlides) index = 0;
-            currentIndex = index;
-            track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
-            });
-        }
-
-        function nextSlide() {
-            goToSlide(currentIndex + 1);
-        }
-
-        function startAutoPlay() {
-            autoPlayInterval = setInterval(nextSlide, 4000);
-        }
-
-        function stopAutoPlay() {
-            clearInterval(autoPlayInterval);
-        }
-
-        dots.forEach(function(dot) {
-            dot.addEventListener('click', function() {
-                stopAutoPlay();
-                const index = parseInt(this.getAttribute('data-index'));
-                goToSlide(index);
-                startAutoPlay();
-            });
-        });
-
-        const container = document.getElementById('sliderGemaContainer');
-        if (container) {
-            container.addEventListener('mouseenter', stopAutoPlay);
-            container.addEventListener('mouseleave', startAutoPlay);
-        }
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        if (container) {
-            container.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-
-            container.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    stopAutoPlay();
-                    if (diff > 0) {
-                        goToSlide(currentIndex + 1);
-                    } else {
-                        goToSlide(currentIndex - 1);
-                    }
-                    startAutoPlay();
-                }
-            }, { passive: true });
-        }
-
-        startAutoPlay();
-    })();
-</script>

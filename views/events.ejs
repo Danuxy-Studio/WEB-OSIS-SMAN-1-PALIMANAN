@@ -6,9 +6,9 @@
         <p class="section-sub">Klik card event untuk melihat detail lengkap.</p>
 
         <form method="GET" action="/events" style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;">
-            <input type="text" name="search" placeholder="Cari event..." value="<%= search %>" style="padding:12px 16px; border-radius:30px; border:1px solid #e2e8f0; font-size:1rem;">
+            <input type="text" name="search" placeholder="Cari event..." value="<%= search %>" style="padding:12px 16px; border-radius:30px; border:1px solid var(--border-color); font-size:1rem; background:var(--bg-card); color:var(--text-primary);">
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                <select name="category" style="flex:1; padding:12px 16px; border-radius:30px; border:1px solid #e2e8f0; font-size:1rem; background:white;">
+                <select name="category" style="flex:1; padding:12px 16px; border-radius:30px; border:1px solid var(--border-color); font-size:1rem; background:var(--bg-card); color:var(--text-primary);">
                     <option value="">Semua Kategori</option>
                     <% categories.forEach(c => { %>
                         <option value="<%= c %>" <%= category === c ? 'selected' : '' %>><%= c %></option>
@@ -25,9 +25,8 @@
                     <a href="/event/<%= e.id %>" class="event-card-link">
                         <div class="event-card">
                             <div style="display:flex; justify-content:center; margin:0 auto 12px;">
-                                <img src="<%= e.logo || 'https://picsum.photos/seed/default/200/200' %>" alt="<%= e.title %>" style="width:200px; height:200px; object-fit:contain;">
+                                <img src="<%= e.logo || 'https://picsum.photos/seed/default/200/200' %>" alt="<%= e.title %>" loading="lazy" style="width:200px; height:200px; object-fit:contain;">
                             </div>
-                            <!-- TEKS FULL, TIDAK DIPOTONG -->
                             <p style="text-align:center;"><%= e.shortDesc || e.description %></p>
                             <span class="tag" style="display:table; margin:8px auto;"><i class="fas fa-tag"></i> <%= e.category || 'Umum' %></span>
                             <div style="text-align:center; margin-top:8px;">

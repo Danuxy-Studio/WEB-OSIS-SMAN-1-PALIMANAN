@@ -1,0 +1,33 @@
+<%- include('partials/header', {title: sub.title}) %>
+
+<section style="padding:24px 0;">
+    <div class="container">
+        <a href="/gallery/<%= encodeURIComponent(category) %>" class="btn-primary btn-secondary" style="display:inline-block; margin-bottom:20px;">
+            <i class="fas fa-arrow-left"></i> Kembali ke <%= category %>
+        </a>
+
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px; flex-wrap:wrap;">
+            <img src="<%= sub.logo %>" alt="<%= sub.title %>" style="width:60px; height:60px; object-fit:contain;">
+            <h1 class="section-title" style="margin-bottom:0;"><%= sub.title %></h1>
+        </div>
+
+        <p style="color:var(--text-muted); margin-bottom:24px;"><%= sub.description %></p>
+
+        <div class="gallery-detail-grid">
+            <% sub.photos.forEach(photo => { %>
+                <div class="gallery-detail-item">
+                    <img src="<%= photo %>" alt="<%= sub.title %>" loading="lazy">
+                </div>
+            <% }) %>
+        </div>
+
+        <!-- Tombol Google Drive -->
+        <div style="text-align:center; margin-top:32px;">
+            <a href="<%= sub.driveLink %>" target="_blank" class="btn-primary" style="display:inline-block; background:#4285F4;">
+                <i class="fab fa-google-drive"></i> Lihat Dokumentasi Lengkap di Google Drive
+            </a>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

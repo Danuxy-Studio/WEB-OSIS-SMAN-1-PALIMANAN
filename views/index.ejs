@@ -14,46 +14,31 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDER FOTO (3 FOTO) - TANPA TOMBOL PANAH -->
+<!-- SLIDER FOTO -->
 <!-- ============================================================ -->
 <section class="slider-section">
     <div class="container">
         <h2 class="section-title" style="text-align:center; margin-bottom:8px;">
             <i class="fas fa-images"></i> Galeri Kegiatan
         </h2>
-        <p style="text-align:center; color:#64748b; margin-bottom:24px;">
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:24px;">
             Dokumentasi momen-momen berharga dalam setiap kegiatan OSIS.
         </p>
 
         <div class="slider-wrapper">
-            <div class="slider-container" id="sliderContainer">
-                <div class="slider-track" id="sliderTrack">
-                    <!-- SLIDE 1 -->
-                    <div class="slider-slide">
-                        <img src="/assets/slider/foto1.jpg" alt="Kegiatan OSIS 1">
-                        <div class="slide-caption"></div>
-                    </div>
-                    <!-- SLIDE 2 -->
-                    <div class="slider-slide">
-                        <img src="/assets/slider/foto2.jpg" alt="Kegiatan OSIS 2">
-                        <div class="slide-caption"></div>
-                    </div>
-                    <!-- SLIDE 3 -->
-                    <div class="slider-slide">
-                        <img src="/assets/slider/foto3.jpg" alt="Kegiatan OSIS 3">
-                        <div class="slide-caption"></div>
-                    </div>
+            <div class="slider-container" data-slider data-autoplay="4000">
+                <div class="slider-track">
+                    <% for (let i = 1; i <= 8; i++) { %>
+                        <div class="slider-slide">
+                            <img src="/assets/slider/foto<%= i %>.jpg" alt="Kegiatan OSIS <%= i %>" loading="lazy">
+                            <div class="slide-caption"></div>
+                        </div>
+                    <% } %>
                 </div>
             </div>
-            <!-- TOMBOL PANAH DIHAPUS -->
         </div>
 
-        <!-- Dot Indicator -->
-        <div class="slider-dots" id="sliderDots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-        </div>
+        <div class="slider-dots"></div>
     </div>
 </section>
 
@@ -84,97 +69,34 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- CARD CUPLIKAN EVENT -->
+<!-- CARD CUPLIKAN EVENT (data-driven, dikirim dari server.js) -->
 <!-- ============================================================ -->
 <section style="padding:32px 0;">
     <div class="container">
         <h2 class="section-title" style="text-align:center; margin-bottom:8px;">
             <i class="fas fa-star"></i> Event Unggulan
         </h2>
-        <p style="text-align:center; color:#64748b; margin-bottom:24px;">
+        <p style="text-align:center; color:var(--text-muted); margin-bottom:24px;">
             Event unggulan merupakan kegiatan berskala besar yang menjadi program utama OSIS. Klik card untuk melihat detail lengkap.
         </p>
 
         <div class="event-grid">
-            <!-- GEMA SASTRA -->
-            <a href="/event/1" class="event-card-link">
-                <div class="event-card">
-                    <div style="display:flex; justify-content:center; margin:0 auto 12px;">
-                        <img src="/assets/logo/gema-sastra.png" alt="Gema Sastra" style="width:200px; height:200px; object-fit:contain;">
+            <% events.forEach(function (e) { %>
+                <a href="/event/<%= e.id %>" class="event-card-link">
+                    <div class="event-card">
+                        <div style="display:flex; justify-content:center; margin:0 auto 12px;">
+                            <img src="<%= e.logo %>" alt="<%= e.title %>" loading="lazy" style="width:200px; height:200px; object-fit:contain;">
+                        </div>
+                        <p style="text-align:center; font-size:0.9rem;"><%= e.shortDesc || e.description %></p>
+                        <span class="tag" style="display:table; margin:8px auto;"><i class="fas fa-tag"></i> <%= e.category %></span>
+                        <div style="text-align:center; margin-top:8px;">
+                            <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem;">
+                                <i class="fas fa-arrow-right"></i> Detail
+                            </span>
+                        </div>
                     </div>
-                    <p style="text-align:center; font-size:0.9rem;">Gema Sastra (Bulan Bahasa) Merupakan kegiatan yang diselenggarakan dalam rangka memperingati Bulan Bahasa</p>
-                    <span class="tag" style="display:table; margin:8px auto;"><i class="fas fa-tag"></i> Budaya &amp; Literasi</span>
-                    <div style="text-align:center; margin-top:8px;">
-                        <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem;">
-                            <i class="fas fa-arrow-right"></i> Detail
-                        </span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- NEPAL FESTIVAL -->
-            <a href="/event/2" class="event-card-link">
-                <div class="event-card">
-                    <div style="display:flex; justify-content:center; margin:0 auto 12px;">
-                        <img src="/assets/logo/nepal-festival.png" alt="Nepal Festival" style="width:200px; height:200px; object-fit:contain;">
-                    </div>
-                    <p style="text-align:center; font-size:0.9rem;">Wadah kreativitas — lomba menyanyi, menari, lukis kaca, promosi produk, musikalisasi puisi.</p>
-                    <span class="tag" style="display:table; margin:8px auto;"><i class="fas fa-tag"></i> Seni &amp; Kreativitas</span>
-                    <div style="text-align:center; margin-top:8px;">
-                        <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem;">
-                            <i class="fas fa-arrow-right"></i> Detail
-                        </span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- PORAK -->
-            <a href="/event/3" class="event-card-link">
-                <div class="event-card">
-                    <div style="display:flex; justify-content:center; margin:0 auto 12px;">
-                        <img src="/assets/logo/porak.png" alt="Porak" style="width:200px; height:200px; object-fit:contain;">
-                    </div>
-                    <p style="text-align:center; font-size:0.9rem;">Pekan Olahraga — futsal, lompat jauh, lompat tinggi.</p>
-                    <span class="tag" style="display:table; margin:8px auto;"><i class="fas fa-tag"></i> Olahraga &amp; Sportivitas</span>
-                    <div style="text-align:center; margin-top:8px;">
-                        <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem;">
-                            <i class="fas fa-arrow-right"></i> Detail
-                        </span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- DIKLAT OSIS -->
-            <a href="/event/5" class="event-card-link">
-                <div class="event-card">
-                    <div style="display:flex; justify-content:center; margin:0 auto 12px;">
-                        <img src="/assets/logo/diklat.png" alt="Diklat OSIS" style="width:200px; height:200px; object-fit:contain;">
-                    </div>
-                    <p style="text-align:center; font-size:0.9rem;">Pelatihan kepemimpinan, manajemen organisasi, dan pengembangan diri.</p>
-                    <span class="tag" style="display:table; margin:8px auto;"><i class="fas fa-tag"></i> Pengembangan Organisasi</span>
-                    <div style="text-align:center; margin-top:8px;">
-                        <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem;">
-                            <i class="fas fa-arrow-right"></i> Detail
-                        </span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- MPLS -->
-            <a href="/event/4" class="event-card-link">
-                <div class="event-card">
-                    <div style="display:flex; justify-content:center; margin:0 auto 12px;">
-                        <img src="/assets/logo/mpls.png" alt="MPLS" style="width:200px; height:200px; object-fit:contain;">
-                    </div>
-                    <p style="text-align:center; font-size:0.9rem;">Masa Pengenalan Lingkungan Sekolah — pengenalan lingkungan, budaya organisasi, dan pembentukan karakter.</p>
-                    <span class="tag" style="display:table; margin:8px auto;"><i class="fas fa-tag"></i> Pengenalan Sekolah</span>
-                    <div style="text-align:center; margin-top:8px;">
-                        <span class="btn-primary" style="display:inline-block; padding:6px 20px; font-size:0.85rem;">
-                            <i class="fas fa-arrow-right"></i> Detail
-                        </span>
-                    </div>
-                </div>
-            </a>
+                </a>
+            <% }); %>
         </div>
 
         <div style="text-align:center; margin-top:24px;">
@@ -184,78 +106,3 @@
 </section>
 
 <%- include('partials/footer') %>
-
-<!-- ============================================================ -->
-<!-- SLIDER SCRIPT (tanpa tombol panah) -->
-<!-- ============================================================ -->
-<script>
-    (function() {
-        const track = document.getElementById('sliderTrack');
-        const dots = document.querySelectorAll('.dot');
-        let currentIndex = 0;
-        const totalSlides = 3;
-        let autoPlayInterval;
-
-        function goToSlide(index) {
-            if (index < 0) index = totalSlides - 1;
-            if (index >= totalSlides) index = 0;
-            currentIndex = index;
-            track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentIndex);
-            });
-        }
-
-        function nextSlide() {
-            goToSlide(currentIndex + 1);
-        }
-
-        function startAutoPlay() {
-            autoPlayInterval = setInterval(nextSlide, 4000);
-        }
-
-        function stopAutoPlay() {
-            clearInterval(autoPlayInterval);
-        }
-
-        // Klik dot untuk navigasi manual
-        dots.forEach(function(dot) {
-            dot.addEventListener('click', function() {
-                stopAutoPlay();
-                const index = parseInt(this.getAttribute('data-index'));
-                goToSlide(index);
-                startAutoPlay();
-            });
-        });
-
-        // Pause on hover
-        const sliderContainer = document.getElementById('sliderContainer');
-        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
-        sliderContainer.addEventListener('mouseleave', startAutoPlay);
-
-        // Touch support untuk mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        sliderContainer.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        sliderContainer.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                stopAutoPlay();
-                if (diff > 0) {
-                    goToSlide(currentIndex + 1);
-                } else {
-                    goToSlide(currentIndex - 1);
-                }
-                startAutoPlay();
-            }
-        }, { passive: true });
-
-        // Start autoplay
-        startAutoPlay();
-    })();
-</script>
