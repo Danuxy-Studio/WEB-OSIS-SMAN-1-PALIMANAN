@@ -491,7 +491,7 @@ body.dark-mode .hero-bg-overlay {
 }
 
 .hero-content .highlight {
-    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    background: linear-gradient(135deg, #60a5fa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow:
