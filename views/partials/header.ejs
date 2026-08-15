@@ -22,20 +22,19 @@
 </head>
 <body>
     <!-- ============================================================
-         NO-FOUC THEME INIT
-         Script blocking di awal <body>, dijalankan sebelum konten
-         apapun dirender. Prioritas: preferensi manual (localStorage)
-         > preferensi sistem HP (prefers-color-scheme). Ini yang
-         mewujudkan "Auto Dark Mode Detection" (US-01 di PRD).
+         THEME: auto by default (prefers-color-scheme in style.css),
+         with optional manual override via the toggle button below.
+         This blocking script runs before paint so there's no flash
+         of the wrong theme when a manual preference is saved.
          ============================================================ -->
     <script>
         (function () {
-            let saved = null;
-            try { saved = localStorage.getItem("theme"); } catch (e) {}
-            const prefersDark = window.matchMedia &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches;
-            const isDark = saved ? saved === "dark" : prefersDark;
-            if (isDark) document.body.classList.add("dark-mode");
+            try {
+                var saved = localStorage.getItem("theme");
+                if (saved === "dark" || saved === "light") {
+                    document.documentElement.setAttribute("data-theme", saved);
+                }
+            } catch (e) {}
         })();
     </script>
 
@@ -54,7 +53,7 @@
                 <li><a href="/events"><i class="fas fa-calendar-alt"></i> Event</a></li>
                 <li><a href="/gallery"><i class="fas fa-images"></i> Galeri</a></li>
                 <li><a href="/aspirasi"><i class="fas fa-envelope"></i> Suara Satu Palimanan</a></li>
-                <li><button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i> Mode Gelap</button></li>
+                <li><button id="themeToggle" class="theme-btn" aria-label="Ganti tema"><i class="fas fa-moon"></i> Mode Gelap</button></li>
             </ul>
         </div>
     </nav>

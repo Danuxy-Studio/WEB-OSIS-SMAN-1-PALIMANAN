@@ -8,31 +8,47 @@
     "use strict";
 
     /* ============================================================
-       THEME TOGGLE (manual override, sinkron dgn inline init script
-       di partials/header.ejs yang sudah set class awal sebelum paint)
+       THEME TOGGLE
+       Default mengikuti prefers-color-scheme (auto, dari device).
+       Tombol ini cuma dipakai kalau user mau override manual —
+       pilihannya disimpan di localStorage lewat attribute
+       data-theme pada <html> (lihat blocking script di header.ejs
+       dan override CSS di style.css).
        ============================================================ */
     function initThemeToggle() {
         const themeToggle = document.getElementById("themeToggle");
         if (!themeToggle) return;
 
-        function render(isDark) {
+        const prefersDark = window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        function currentIsDark() {
+            const attr = document.documentElement.getAttribute("data-theme");
+            if (attr === "dark") return true;
+            if (attr === "light") return false;
+            return prefersDark;
+        }
+
+        function render() {
+            const isDark = currentIsDark();
             themeToggle.innerHTML = isDark
                 ? '<i class="fas fa-sun"></i> Mode Terang'
                 : '<i class="fas fa-moon"></i> Mode Gelap';
         }
 
-        render(document.body.classList.contains("dark-mode"));
+        render();
 
         themeToggle.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
-            const isDark = document.body.classList.toggle("dark-mode");
-            render(isDark);
+            const next = currentIsDark() ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", next);
             try {
-                localStorage.setItem("theme", isDark ? "dark" : "light");
+                localStorage.setItem("theme", next);
             } catch (err) {
                 /* localStorage tidak tersedia, abaikan */
             }
+            render();
         });
     }
 
